@@ -1,8 +1,8 @@
 #Stage-1 the build process
 FROM node:15 as build-deps
 WORKDIR /usr/src/app
-COPY package*.json ./
-RUN yarn
+COPY ./package*.json ./
+RUN yarn 
 COPY . ./
 RUN yarn build
 
