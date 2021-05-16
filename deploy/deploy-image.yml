@@ -1,0 +1,9 @@
+---
+- name: Pull docker image 
+  hosts: local
+  connection: local
+  tasks:
+    - name: Pull image
+      docker-image:
+        name: ayushyadav99/econ-plat-frontend
+        source: pull
