@@ -1,9 +1,9 @@
 ---
-- name: Pull docker image of calculator app
-  hosts: local
+- name: Pull docker image 
+  hosts: all 
   connection: local
   tasks:
-    - name: Pull junit devops image
+    - name: Pull image
       docker_image:
         name: ayushyadav99/ecom-plat-frontend
         source: pull
