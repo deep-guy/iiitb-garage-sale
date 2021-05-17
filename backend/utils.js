@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 
+
+// Helper function to get user data and return a token
 export const generateToken = (user) => {
         return jwt.sign(
             {
