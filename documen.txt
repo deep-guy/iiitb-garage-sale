@@ -23,3 +23,4 @@ We are using the MERN stack for this project (google and fill in holes.)
 - Installed expressJS for Backend
 - Installed nodemon for live updation of backend server after updation of backend folder
 - Installed axios library to send ajax request to server
+- Installed redux 
