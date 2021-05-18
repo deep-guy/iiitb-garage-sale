@@ -1,13 +1,19 @@
-#Stage-1 the build process
-FROM node:15 as build-deps
-WORKDIR /usr/src/app
-COPY ./package*.json ./
-RUN yarn 
-COPY . ./
-RUN yarn build
+#  Dockerfile for Node Express Backend
+FROM node:15
 
-#Stage-2 the production env
-FROM nginx:1.16-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"] 
+# Create App Directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install Dependencies
+COPY package*.json ./
+RUN npm install -g npm@7.13.0
+RUN npm install --silent
+
+# Copy app source code
+COPY . .
+
+# Exports
+EXPOSE 5000
+
+CMD ["npm","start"]

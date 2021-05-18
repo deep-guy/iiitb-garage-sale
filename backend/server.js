@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/iiitb_garage_sale', {
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://mongo:27017/iiitb_garage_sale', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
