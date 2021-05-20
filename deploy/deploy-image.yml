@@ -8,6 +8,6 @@
         name: ayushyadav99/ecomapp-client
         source: pull
     - name: Pull backend image
-        docker_image:
-          name: ayushyadav99/ecomapp-server
-          source: pull
+      docker_image:
+        name: ayushyadav99/ecomapp-server
+        source: pull
