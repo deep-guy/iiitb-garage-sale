@@ -3,6 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import productRouter from './routers/productRouter.js';
 import userRouter from './routers/userRouter.js';
+import pkg from 'log4js';
+const { configure, getLogger } = pkg;
+configure("./log4js_config.json");
+const logger = getLogger();
+logger.level = "info";
+
 
 dotenv.config();
 
@@ -29,5 +35,5 @@ app.use((err, req, res, next) =>{
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    console.log(`Serve at http://localhost:${port}`);
+    logger.info(`Serve at http://localhost:${port}`);
 });
