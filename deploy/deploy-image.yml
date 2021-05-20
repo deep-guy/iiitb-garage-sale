@@ -3,7 +3,11 @@
   hosts: all 
   connection: local
   tasks:
-    - name: Pull image
+    - name: Pull frontend image
       docker_image:
-        name: ayushyadav99/ecom-plat-frontend
+        name: ayushyadav99/ecomapp-client
         source: pull
+    - name: Pull backend image
+        docker_image:
+          name: ayushyadav99/ecomapp-server
+          source: pull

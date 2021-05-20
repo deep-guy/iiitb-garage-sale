@@ -13,8 +13,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: myapp-server
-    container_name: myapp-node-server
+    image: ayushyadav99/ecomapp-server
+    container_name: ecomapp-node-server
     command: ./node_modules/.bin/nodemon ./backend/server.js 
     volumes:
       - ./node_modules:/usr/src/app/node_modules
@@ -30,8 +30,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: myapp-client
-    container_name: myapp-react-client
+    image: ayushyadav99/ecomapp-client
+    container_name: ecomapp-react-client
     command: npm start
     volumes:
       - ./frontend/:/usr/app
