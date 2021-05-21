@@ -3,6 +3,11 @@ import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Product from '../models/productModel.js';
 import { isAdmin, isAuth } from '../utils.js';
+import pkg from 'log4js';
+const { configure, getLogger } = pkg;
+configure("./log4js_config.json");
+const logger = getLogger();
+logger.level = "info";
 
 const productRouter = express.Router();
 
@@ -11,6 +16,7 @@ productRouter.get(
     '/',
     expressAsyncHandler(async (req, res) => {
         const products = await Product.find({});
+        logger.info("[api/products] [SUCCESS]");
         res.send(products);
     })
 );
@@ -21,6 +27,7 @@ productRouter.get(
     expressAsyncHandler(async (req, res) => {
         // await Product.remove({});
         const createdProducts = await Product.insertMany(data.products);
+        logger.info("[api/products/seed] [SUCCESS]");
         res.send({ createdProducts });
     })
 );
@@ -31,8 +38,10 @@ productRouter.get(
     expressAsyncHandler(async (req, res) => {
         const product = await Product.findById(req.params.id);
         if (product) {
+            logger.info("[api/products/"+ req.params.id + "] [SUCCESS]");
             res.send(product);
         } else {
+            logger.info("[api/products/"+ req.params.id + "] [FAILED]");
             res.status(404).send({ message: 'Product Not Found' });
         }
     })

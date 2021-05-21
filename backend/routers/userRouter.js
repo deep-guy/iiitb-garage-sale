@@ -4,6 +4,12 @@ import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
 import { generateToken, isAuth } from '../utils.js';
+import pkg from 'log4js';
+const { configure, getLogger } = pkg;
+configure("./log4js_config.json");
+const logger = getLogger();
+logger.level = "info";
+
 
 const userRouter = express.Router();
 
@@ -11,7 +17,7 @@ const userRouter = express.Router();
 userRouter.get(
     '/seed',
     expressAsyncHandler(async (req, res) => {
-        // await User.deleteMany({});
+        logger.info("[api/users/seed] [SUCESS]")
         const createdUsers = await User.insertMany(data.users);
         res.send({ createdUsers });
     })
@@ -24,6 +30,7 @@ userRouter.post(
         const user = await User.findOne({ email: req.body.email });
         if (user) {
             if (bcrypt.compareSync(req.body.password, user.password)) {
+            logger.info("[api/users/signin] [SUCCESS]");
             res.send({
                 _id: user._id,
                 name: user.name,
@@ -34,6 +41,7 @@ userRouter.post(
             return;
             }
         }
+        logger.info("[api/users/signin] [FAILED]");
         res.status(401).send({ message: 'Invalid email or password' });
     })
 );
@@ -47,6 +55,7 @@ userRouter.post(
             password: bcrypt.hashSync(req.body.password, 8),
         });
         const createdUser = await user.save();
+        logger.info("[api/users/register] [SUCCESS]");
         res.send({
             _id: createdUser._id,
             name: createdUser.name,
@@ -62,8 +71,10 @@ userRouter.get(
     expressAsyncHandler(async (req, res) => {
         const user = await User.findById(req.params.id);
         if (user) {
+            logger.info("[api/users/"+ req.params.id + "] [SUCCESS]");
             res.send(user);
         } else {
+            logger.info("[api/users/"+ req.params.id + "] [FAILURE]");
             res.status(404).send({ message: 'User Not Found' });
         }
     })
