@@ -9,7 +9,6 @@ configure("./log4js_config.json");
 const logger = getLogger();
 logger.level = "info";
 
-
 dotenv.config();
 
 const app = express();
@@ -26,6 +25,7 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://mongo:27017/iiitb_garage_
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter)
 app.get('/', (req, res) => {
+    logger.info("[/] [SUCCESS]");
     res.send('Server is ready');
 });
 
@@ -35,5 +35,5 @@ app.use((err, req, res, next) =>{
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    logger.info(`Serve at http://localhost:${port}`);
+    console.log(`Serve at http://localhost:${port}`);
 });
